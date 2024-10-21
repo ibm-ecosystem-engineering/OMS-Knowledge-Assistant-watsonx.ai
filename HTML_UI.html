@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>watsonx Model</title>
+    <link rel="icon" type="image/svg+xml" href="https://www.ibm.com/content/dam/adobe-cms/default-images/favicon.svg">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.horsesforsources.com/wp-content/uploads/2023/05/Watsonx.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            overflow: hidden; /* Prevents scrolling on the body */
+        }
+        .header {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensures the header is above other content */
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .header img {
+            height: 40px; /* Adjust the size of the favicon */
+            margin-right: 10px; /* Space between the favicon and text */
+        }
+        .header .logo {
+            font-size: 2em; /* Larger font size for IBM */
+            font-family: 'IBM Plex Sans', sans-serif; /* IBM font */
+            margin: 0; /* Remove default margin */
+        }
+        .header .line {
+            width: 100%;
+            border-top: 2px solid white; /* Horizontal line */
+            margin: 5px 0 0 0; /* Space above the line */
+        }
+        .header .text {
+            font-size: 1em; /* Normal font size for the rest of the text */
+            font-family: 'IBM Plex Sans', sans-serif; /* IBM font */
+            margin: 0; /* Remove default margin */
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            max-width: 800px;
+            height: calc(100% - 80px); /* Adjust height to leave space for header */
+            margin: 80px auto 0; /* Add margin to push content below the header */
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .chat {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between messages */
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .message.user {
+            text-align: right;
+        }
+        .message.bot {
+            text-align: left;
+        }
+        .message p {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 60%;
+        }
+        .message.user p {
+            background-color: #e1ffc7; /* Light green */
+        }
+        .message.bot p {
+            background-color: #f1f1f1; /* Light gray */
+        }
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            font-size: 24px; /* Increase size for better visibility */
+            color: #333; /* Darker color for better contrast */
+            margin-top: 10px;
+        }
+        .typing-indicator span {
+            display: inline-block;
+            animation: jump 1s infinite;
+            font-weight: bold; /* Make dots bold */
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes jump {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        textarea {
+            width: calc(100% - 20px);
+            height: 60px;
+            padding: 10px;
+            margin: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        .footer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: black;
+            color: white;
+            padding: 15px 25px; /* Increased padding for larger area */
+            border-radius: 5px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.5em; /* Increased font size */
+            z-index: 1000; /* Ensures the footer is above other content */
+            display: flex;
+            align-items: center;
+        }
+        .footer .highlight {
+            color: #0072CE; /* IBM Blue */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://www.ibm.com/content/dam/adobe-cms/default-images/favicon.svg" alt="IBM Favicon">
+        <div>
+            <div class="logo">IBM</div>
+            <div class="line"></div>
+            <div class="text">IBM Sterling Order Management System Software</div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="chat" id="chat">
+            <!-- Messages will be dynamically added here -->
+        </div>
+        <textarea id="question" placeholder="Type your question here..."></textarea>
+    </div>
+    <div class="footer">
+        dream<span class="highlight">AI</span>rs
+    </div>
+
+    <script>
+        document.getElementById('question').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault(); // Prevents the default action of inserting a new line
+                askQuestion();
+            }
+        });
+
+        async function askQuestion() {
+            const question = document.getElementById('question').value;
+            const chat = document.getElementById('chat');
+
+            if (!question.trim()) {
+                return; // Do nothing if the question is empty
+            }
+
+            // Add user message to chat
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user';
+            userMessage.innerHTML = `<p>${question}</p>`;
+            chat.appendChild(userMessage);
+
+            // Add typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            typingIndicator.innerHTML = `
+                <span>.</span><span>.</span><span>.</span>
+            `;
+            chat.appendChild(typingIndicator);
+
+            // Clear the input
+            document.getElementById('question').value = '';
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question })
+                });
+
+                // Remove typing indicator
+                chat.removeChild(typingIndicator);
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'message bot';
+                    botMessage.innerHTML = `<p>Error: ${error.error}</p>`;
+                    chat.appendChild(botMessage);
+                    scrollToBottom();
+                    return;
+                }
+
+                const data = await response.json();
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.innerHTML = `<p>${data.answer}</p>`;
+                chat.appendChild(botMessage);
+
+            } catch (error) {
+                const botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.innerHTML = `<p>Request failed: ${error.message}</p>`;
+                chat.appendChild(botMessage);
+            }
+
+            // Scroll to the bottom of the chat
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            const chat = document.getElementById('chat');
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
