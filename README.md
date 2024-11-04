@@ -3,7 +3,9 @@
 
 IBM Sterling OMS (Order Management System) is a powerful platform that offers comprehensive visibility, allowing businesses to oversee inventory, monitor orders in real time, and enhance customer experiences through efficient and adaptable order processing. Its features, including AI-driven insights and smooth integration with current systems, enable organizations to respond to shifting market demands and boost operational efficiency.
 
-This tutorial details on how to leverage the Retrieval-Augmented Generation (RAG) approach with Watson X AI and Chroma DB to enhance the experience for developers using Sterling OMS search capabilities in Knowledge center.Talking about a business persona a developer in supply chain management trying to configure IBM sterling OMS navigates through the Knowledge Centre to search for steps to configure OMS and may feel puzzled when faced with numerous links while trying to find the solution to her question.By using the asset the search results are narrowed down to be more accurate and precise.
+When a developer in supply chain management seeks to configure IBM Sterling OMS, they often navigate the Knowledge Center in search of guidance. However, they may feel overwhelmed by the abundance of links and information, making it challenging to pinpoint the solution to their specific question.Utilizing the asset helps refine the search results, making them more accurate and precise.
+
+This tutorial details on how to leverage the Retrieval-Augmented Generation (RAG) approach with Watson X AI and Chroma DB to enhance the experience for developers using Sterling OMS search capabilities in Knowledge center.
 
 # Pre-reqs
 1.  Install python 3.10 environment and Visual code editor.
