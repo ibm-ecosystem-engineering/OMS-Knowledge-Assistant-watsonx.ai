@@ -3,7 +3,7 @@
 
 IBM Sterling OMS (Order Management System) is a powerful platform that offers comprehensive visibility, allowing businesses to oversee inventory, monitor orders in real time, and enhance customer experiences through efficient and adaptable order processing. Its features, including AI-driven insights and smooth integration with current systems, enable organizations to respond to shifting market demands and boost operational efficiency.
 
-This tutorial details on how to leverage the Retrieval-Augmented Generation (RAG) approach with Watson X AI and Chroma DB to enhance the experience for developers using Sterling OMS search capabilities in Knowledge center.
+This tutorial details on how to leverage the Retrieval-Augmented Generation (RAG) approach with Watson X AI and Chroma DB to enhance the experience for developers using Sterling OMS search capabilities in Knowledge center.Talking about a business persona a developer in supply chain management trying to configure IBM sterling OMS navigates through the Knowledge Centre to search for steps to configure OMS and may feel puzzled when faced with numerous links while trying to find the solution to her question.By using the asset the search results are narrowed down to be more accurate and precise.
 
 # Pre-reqs
 1.  Install python 3.10 environment and Visual code editor.
@@ -34,11 +34,20 @@ The website provided is crawled and data is chunked and inserted to Chroma db
 
 <img src="images/image3.jpg">
 
-# Open the HTML_UI.html
+# Asset Execution
 
-Ask the questions as required to fetch information from Knowledge center.
+When the question "how to create a regular item" is asked via Knowledge center link , multiple search results come up as shown below
+
+<img src="images/image7.jpg">
+
+Open the HTML_UI.html .The same question is asked via OMS Knowledge Assistant the answer is accurate and precise as shown.
 
 <img src="images/image6.jpg">
 
+# References
+
+https://www.ibm.com/docs/en/order-management-sw/10.0
+
 # Acknowledgments
 Thanks to Yukti Makkar,Mansi Tewari,Kishan Dhongadi,Vikas Agrawal and Aditi Shah for their invaluable assistance .
+
