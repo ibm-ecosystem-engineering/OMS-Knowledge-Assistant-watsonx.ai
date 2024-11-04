@@ -15,30 +15,30 @@ This tutorial details on how to leverage the Retrieval-Augmented Generation (RAG
 # Watsonx Configurations
 Provide the api key, Watsonx Project id , model id and endpoint url as shown below 
 
-<img src="images/image1.png">
+<img src="images/image1.jpg">
 
 The Prompt lab parameters are provided as below and the prompt instruction is given as below .
 
-<img src="images/image4.png">
+<img src="images/image4.jpg">
 
 The query passed via UI is stored and sent to the prompt lab with the code below 
 
-<img src="images/image5.png">
+<img src="images/image5.jpg">
 
 # Website Crawling
 OMS knowledge center link is provided as below .
 
-<img src="images/image2.png">
+<img src="images/image2.jpg">
 
 The website provided is crawled and data is chunked and inserted to Chroma db 
 
-<img src="images/image3.png">
+<img src="images/image3.jpg">
 
 # Open the HTML_UI.html
 
 Ask the questions as required to fetch information from Knowledge center.
 
-<img src="images/image6.png">
+<img src="images/image6.jpg">
 
 # Acknowledgments
 Thanks to Yukti Makkar,Mansi Tewari,Kishan Dhongadi,Vikas Agrawal and Aditi Shah for their invaluable assistance .
